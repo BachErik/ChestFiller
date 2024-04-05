@@ -1,0 +1,9 @@
+name: chestFIller
+version: '${project.version}'
+main: de.bacherik.chestfiller.Main
+api-version: '1.20'
+
+commands:
+  fillchests:
+    description: Füllt Truhen in einem Bereich mit einzigartigen Items
+    usage: /<command>
