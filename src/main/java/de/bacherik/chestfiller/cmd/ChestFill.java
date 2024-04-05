@@ -28,8 +28,9 @@ public class ChestFill implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        if (args.length != 6) {
-            sender.sendMessage("Ungültige Anzahl an Argumenten. Verwendung: /fillchests <x1> <y1> <z1> <x2> <y2> <z2>");
+        // Validierung und Parsing der Argumente
+        if (args.length != 10) { // Anpassung für die neuen Argumente
+            sender.sendMessage("Ungültige Anzahl an Argumenten. Verwendung: /fillchests <x1> <y1> <z1> <x2> <y2> <z2> <fillType> <stackSize> <shuffleItems> <splitDoubleChests>");
             return true;
         }
 
@@ -38,8 +39,15 @@ public class ChestFill implements CommandExecutor, TabCompleter {
             Location corner1 = new Location(player.getWorld(), Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
             Location corner2 = new Location(player.getWorld(), Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]));
 
-            plugin.fillChestsInArea(corner1, corner2, ((Player) sender).getPlayer());
-            player.sendMessage("Truhen im Bereich wurden gefüllt!");
+            // Verarbeitung der neuen Argumente
+            String fillType = args[6];
+            String stackSize = args[7];
+            boolean shuffleItems = Boolean.parseBoolean(args[8]);
+            boolean splitDoubleChests = Boolean.parseBoolean(args[9]);
+
+            plugin.fillChestsInArea(corner1, corner2, fillType, stackSize, shuffleItems, splitDoubleChests, player);
+
+            player.sendMessage("Truhen im Bereich wurden entsprechend der neuen Argumente gefüllt!");
         } catch (NumberFormatException e) {
             player.sendMessage("Ungültige Koordinaten.");
         }
@@ -49,6 +57,7 @@ public class ChestFill implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        // Tab-Completion-Logik bleibt unverändert
         if (sender instanceof Player) {
             Player player = (Player) sender;
             Block targetBlock = player.getTargetBlockExact(5); // 5 ist die maximale Entfernung
@@ -67,6 +76,21 @@ public class ChestFill implements CommandExecutor, TabCompleter {
                     case 3:
                     case 6:
                         completions.add(String.valueOf(loc.getBlockZ()));
+                        break;
+                    // Hinzu kommen die neuen Argumente für die Tab-Vervollständigung
+                    case 7:
+                        completions.add("full");
+                        completions.add("single");
+                        break;
+                    case 8:
+                        completions.add("full");
+                        completions.add("single");
+                        completions.add("random");
+                        break;
+                    case 9:
+                    case 10:
+                        completions.add("true");
+                        completions.add("false");
                         break;
                 }
                 return completions;
