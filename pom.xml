@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>de.bacherik</groupId>
-  <artifactId>chestFIller</artifactId>
-  <version>0.0.1-BETA</version>
+  <artifactId>chestFiller</artifactId>
+  <version>1.0.0</version>
   <packaging>jar</packaging>
 
-  <name>chestFIller</name>
+  <name>chestFiller</name>
 
   <properties>
     <java.version>1.8</java.version>

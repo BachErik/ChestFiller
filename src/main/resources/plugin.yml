@@ -1,4 +1,4 @@
-name: chestFIller
+name: chestFiller
 version: '${project.version}'
 main: de.bacherik.chestfiller.Main
 api-version: '1.20'
